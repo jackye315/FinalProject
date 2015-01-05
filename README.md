@@ -1,7 +1,6 @@
 FinalProject
 ============
-FinalProject
-============
+
 Battleship
 
 January 5, 2015
