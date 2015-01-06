@@ -12,3 +12,7 @@ Setup -sets up grid
 AIplay-how the AI will play, using shooting method and random parameters
 ShowGrid-shows if shooting hit a ship
 PlayGame-Method for playing where one player starts then the other
+
+
+January 6, 2015
+We downloaded Processing and spent the period trying to open/run it.
