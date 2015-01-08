@@ -2,13 +2,14 @@ Cell[][] grid;
 
 int cols = 40;
 int rows = 40;
-boolean overBox = false;
-boolean locked = false;
+boolean overBox = true;
+boolean locked = true;
 float xOffset = 0.0; 
 float yOffset = 0.0; 
 float bx;
 float by;
 int boxSize = 75;
+int col=127;
 
 void setup() {
   size(400,400);
@@ -38,48 +39,17 @@ class Cell {
 
   void display() {
     stroke(20);
-    fill(127);
+    fill(col,0,0);
     rect(x,y,w,h); 
   }
 }
 
-void draw() 
-{ 
-  ;
-  
-  // Test if the cursor is over the box 
-  if (mouseX > bx-boxSize && mouseX < bx+boxSize && 
-      mouseY > by-boxSize && mouseY < by+boxSize) {
-    overBox = true;  
-    if(!locked) { 
-      stroke(255); 
-      fill(153);
-    } 
-  } else {
-    stroke(153);
-    fill(153);
-    overBox = false;
-  }
-  
-  // Draw the box
-  rect(bx, by, boxSize, boxSize);
-}
-
-void mousePressed() {
-  if(overBox) { 
-    locked = true; 
-    fill(255, 255, 255);
-  } else {
-    locked = false;
-  }
-  xOffset = mouseX-bx; 
-  yOffset = mouseY-by; 
-
-}
+void mousePressed(){
+col+=50;
+col%=255;
+println(col);
+} 
 
 
-void mouseReleased() {
-  locked = false;
-}
 
 
