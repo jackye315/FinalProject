@@ -16,3 +16,6 @@ PlayGame-Method for playing where one player starts then the other
 
 January 6, 2015
 We downloaded Processing and spent the period trying to open/run it.
+
+January 7,2015
+We got processing to run and made the initial grid. We also discussed more about the game mechanics and started working on the attack method with mouse
