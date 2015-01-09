@@ -19,12 +19,12 @@ class Board{
 Board[][] grid;
 Board[][] grid2;
 
-int cols = 20;
-int rows = 10;
+int cols = 30;
+int rows = 20;
 
 
 void setup(){
-  size(800,400);
+  size(900,600);
   grid = new Board[cols][rows];
   for (int i = 0; i < cols/2; i++){
     for (int j = 0; j < rows; j++){
