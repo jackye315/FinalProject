@@ -20,7 +20,7 @@ Board[][] grid;
 Board[][] grid2;
 
 int cols = 30;
-int rows = 20;
+int rows = 15;
 
 
 void setup(){
@@ -46,17 +46,15 @@ int xcor, ycor;
 void draw(){
   fill(value);
   if (mousePressed == true){
+    if(mouseX > 450 && mouseY < 450){
     xcor = mouseX/30 * 30;
     ycor = mouseY/30 * 30;
     rect(xcor, ycor, 30, 30);
   }
 }
-
-void mousePressed(){
-  if (value == 0){
-    value = 255;
-  }
 }
+
+
 
   
 
