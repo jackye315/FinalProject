@@ -19,12 +19,12 @@ class Board{
 Board[][] grid;
 Board[][] grid2;
 
-int cols = 20;
-int rows = 10;
+int cols = 30;
+int rows = 15;
 
 
 void setup(){
-  size(800,400);
+  size(900,600);
   grid = new Board[cols][rows];
   for (int i = 0; i < cols/2; i++){
     for (int j = 0; j < rows; j++){
@@ -46,17 +46,15 @@ int xcor, ycor;
 void draw(){
   fill(value);
   if (mousePressed == true){
+    if(mouseX > 450 && mouseY < 450){
     xcor = mouseX/30 * 30;
     ycor = mouseY/30 * 30;
     rect(xcor, ycor, 30, 30);
   }
 }
-
-void mousePressed(){
-  if (value == 0){
-    value = 255;
-  }
 }
+
+
 
   
 
