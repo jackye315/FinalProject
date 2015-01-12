@@ -1,6 +1,6 @@
 import java.util.*;
 
-public abstract class Board{
+public class Board{
     
     char[][] Board;
     char rows, cols;
@@ -59,6 +59,7 @@ public abstract class Board{
     }
 
     public boolean attack(Board other, int r, int c){
+	if (r<15 & c<15
 	//attacks based on coordinates entered 
 	//if char != X && O
 	//if char = S --> X
@@ -66,6 +67,7 @@ public abstract class Board{
     }
     
     public boolean oppAttack(Board other, int r, int c){
+	
 	//if hit --> attack around hit area
     }
     
