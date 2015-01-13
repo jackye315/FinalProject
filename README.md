@@ -31,3 +31,6 @@ January 9, 2015
 The boxes of the grid now change color and they match up with the coordinates. 
 We tried to figure out how they can check the current color of that box to know if there is a ship there.
 We also started working on a way to place ships on the board.
+
+January 12, 2015
+Decided the processing front part was really confusing so we instead worked on the java back end. We made a board and a battleship class, and also began working on the "attack" method for each turn.
