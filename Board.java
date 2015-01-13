@@ -54,15 +54,19 @@ public class Board{
 	return false;
     }
 
-    public boolean placeShip(String ship, int r, int c){
+    public boolean placeShip(String ship, int r, int c, int dx, int dy){
+	if(dx==dy){
+	    dx=1;
+	    dy=0;
+	}
 	if(addShip( ship,  r,  c)){
 		int x=r;
 		int z=c;
 		int y=0;
 		while(y<ship.length()){
 		    board[x][z]=ship.charAt(y);
-		    x=x+1;
-		    z=z+1;
+		    x=x+dx;
+		    z=z+dy;
 		    y=y+1;
 		}
 	    }
@@ -75,7 +79,7 @@ public class Board{
     }
 
     public boolean checkShip(int r, int c){
-	if(board[r][c]!="_"){
+	if(board[r][c]!="_" && board[r][c]!="X" && board[r][c]!="O"){
 	    return true;
 	}
 	else{
@@ -88,10 +92,10 @@ public class Board{
     public boolean attack(Board other, int r, int c){
 	if (r<15 && c<15 && r>0 && c>0){
 	    if(checkShip(r,c)){
-		other[r][c]="Y";
+		other[r][c]="X";
 		}
 	    else{
-		other[r][c]="n";
+		other[r][c]="O";
 		}
 	    return true;
 	}
@@ -108,24 +112,23 @@ public class Board{
 	int dx=0;
 	int dy=0;
 	if(attack(other,r,c)){
-	    if(rand.nextInt(5)>3){
+	    if(rand.nextInt(4)==0){
 		dx=1;
-	    }
-	    if(rand.nextInt(5)<3){
-		dx=0;
-	    }
-	    if(rand.nextInt(5)==3){
-		dx=-1;
-	    }
-	    if(rand.nextInt(1)>3){
-		dy=1;
-	    }
-	    if(rand.nextInt(1)<3){
 		dy=0;
 	    }
-	    if(rand.nextInt(1)==0){
+	    if(rand.nextInt(4)==1){
+		dx=-1;
+		dy=0;
+	    }
+	    if(rand.nextInt(4)==2){
+		dx=0;
+		dy=1;
+	    }
+	    if(rand.nextInt(4)==3){
+		dx=0;
 		dy=-1;
 	    }
+
 	    attack(other,r+dx,c+dy);
 	    return true;
 	}
@@ -135,6 +138,20 @@ public class Board{
 	//if hit --> attack around hit area
     }
     
+    public void oppKill(Board other, int r, int c){
+	if (other[r][c]=="X" && other[r][c+1]++"X"){
+	    attack(other,r,c+1);
+	}
+	if (other[r][c]=="X" && other[r][c-1]++"X"){
+	    attack(other,r,c-1);
+	}
+	if (other[r][c]=="X" && other[r+1][c]++"X"){
+	    attack(other,r+1,c);
+	}
+	if (other[r][c]=="X" && other[r-1][c+1]++"X"){
+	    attack(other,r-1,c);
+	}
+    }
 
 }
 
