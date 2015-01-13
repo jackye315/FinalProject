@@ -32,5 +32,15 @@ The boxes of the grid now change color and they match up with the coordinates.
 We tried to figure out how they can check the current color of that box to know if there is a ship there.
 We also started working on a way to place ships on the board.
 
+January 11, 2015
+Created a board class with methods clear() and addShip().
+The board is represented by a 2D array and the ships are represented by strings of 'S'.
+clear() - clears the board in the beginning of the game
+addShip() - adds ship onto the board and returns a boolean if it works
+Started working on the methods that will prompt game.
+GenerateBoard() - generates player's board
+GenerateOpp() - generates the opponent's board
+first() - determines who goes first
+
 January 12, 2015
-Decided the processing front part was really confusing so we instead worked on the java back end. We made a board and a battleship class, and also began working on the "attack" method for each turn.
+Decided the processing front part was really confusing so we instead worked on the java back end. We continued working on the board and battleship class, and also worked on the attack() method for each turn.
