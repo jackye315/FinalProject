@@ -2,32 +2,32 @@ import java.util.*;
 
 public class Board{
     
-    char[][] Board;
+    char[][] board;
     char rows, cols;
     String ships = "SS,SSS,SSS,SSS,SSSS,SSSS";
     Random rand = new Random();
 
     public Board(){
-	Board = new char[15][15];
+	board = new char[15][15];
 	this.rows = 15;
 	this.cols = 15;
 	this.clear();
     }
 
     private void clear(){
-	for(int h = 0; h < this.length; h++){
-	    for(int w = 0; w < this[h].length; w++){
-		this[h][w]='_';
+	for(int h = 0; h < board.length; h++){
+	    for(int w = 0; w < board[h].length; w++){
+		board[h][w]='_';
 	    }
 	}
     }
 
     public String toString(){
 	String result = "";
-	for(int h = 0; h < this.length; h++){
+	for(int h = 0; h < board.length; h++){
 	    result += "{";
-	    for(int w = 0; w < this[h].length; w++){
-		result += this[h][w];
+	    for(int w = 0; w < board[h].length; w++){
+		result += board[h][w];
 		result += " ";
 	    }
 	    result += "}";
@@ -37,15 +37,15 @@ public class Board{
     }
 
     public boolean addShip(String ship,int row, int col){
-	if(row < this.length && col < this[row].length){
-	    if(this[row].length-col >= this.length()){
+	if(row < board.length && col < board[row].length){
+	    if(board[row].length-col >= ship.length()){
 		for(int i = 0; i < ship.length(); i++){
-		    if(this[row][col+i]!='_' && this[row][col+i]!=ship.charAt(i)){
+		    if(board[row][col+i]!='_' && board[row][col+i]!=ship.charAt(i)){
 			return false;
 		    }
 		}
 		for(int i = 0; i < ship.length(); i++){
-		    this[row][col+i]=ship.charAt(i);
+		    board[row][col+i]=ship.charAt(i);
 
 		}
 		return true;
@@ -54,12 +54,50 @@ public class Board{
 	return false;
     }
 
-    public boolean placeShip(int r, int c){
+    public boolean placeShip(String ship, int r, int c){
+	if(addShip( ship,  r,  c)){
+		int x=r;
+		int z=c;
+		int y=0;
+		while(y<ship.length()){
+		    board[x][z]=ship.charAt(y);
+		    x=x+1;
+		    z=z+1;
+		    y=y+1;
+		}
+	    }
+	else{
+	        return false;
+       	    }
+	return false;
+    
 	//places ship based on coordinates entered using addShip()
     }
 
+    public boolean checkShip(int r, int c){
+	if(board[r][c]!="_"){
+	    return true;
+	}
+	else{
+	    return false;
+	}
+    }
+
+
+
     public boolean attack(Board other, int r, int c){
-	if (r<15 & c<15
+	if (r<15 && c<15 && r>0 && c>0){
+	    if(checkShip(r,c)){
+		other[r][c]="Y";
+		}
+	    else{
+		other[r][c]="n";
+		}
+	    return true;
+	}
+	else{
+	    return false;
+	}
 	//attacks based on coordinates entered 
 	//if char != X && O
 	//if char = S --> X
@@ -67,9 +105,36 @@ public class Board{
     }
     
     public boolean oppAttack(Board other, int r, int c){
-	
+	int dx=0;
+	int dy=0;
+	if(attack(other,r,c)){
+	    if(rand.nextInt(5)>3){
+		dx=1;
+	    }
+	    if(rand.nextInt(5)<3){
+		dx=0;
+	    }
+	    if(rand.nextInt(5)==3){
+		dx=-1;
+	    }
+	    if(rand.nextInt(1)>3){
+		dy=1;
+	    }
+	    if(rand.nextInt(1)<3){
+		dy=0;
+	    }
+	    if(rand.nextInt(1)==0){
+		dy=-1;
+	    }
+	    attack(other,r+dx,c+dy);
+	    return true;
+	}
+	else{
+	    return false;
+	}
 	//if hit --> attack around hit area
     }
     
 
 }
+
