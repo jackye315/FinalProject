@@ -47,9 +47,7 @@ public class Battleship{
 
     }
 
-    public static void isAlive(Board player){
-    }
-
+  
 
 
     

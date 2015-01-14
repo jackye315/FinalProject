@@ -179,5 +179,33 @@ public class Board{
 	}
     }
 
+  public static boolean isAlive(Board player){
+	int x=0;
+	while(x<player.length){
+	    int y=0;
+	    while(y<player[x].length){
+		if(player[x][y]=="s"){
+		    return true;
+		}
+		y=y+1;
+	    }
+	    x=x+1;
+	}
+	return false;
+  }
+
+
+    public String Won{
+	if(isAlive){
+	}
+	else{
+	    return "You won, Play again";
+	}
+    }
+
 }
+
+
+
+
 
