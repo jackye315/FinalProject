@@ -44,3 +44,6 @@ first() - determines who goes first
 
 January 12, 2015
 Decided the processing front part was really confusing so we instead worked on the java back end. We continued working on the board and battleship class, and also worked on the attack() method for each turn.
+
+January 13, 2015
+Worked on AI stuff like how the AI attacks, know when to attack a certain area, etc. Also discuess more on how we can use processing by adding more variables to the grid. 
