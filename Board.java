@@ -6,6 +6,8 @@ public class Board{
     char rows, cols;
     String ships = "SS,SSS,SSS,SSS,SSSS,SSSS";
     Random rand = new Random();
+    int misscounter;
+
 
     public Board(){
 	board = new char[15][15];
@@ -150,6 +152,30 @@ public class Board{
 	}
 	if (other[r][c]=="X" && other[r-1][c+1]++"X"){
 	    attack(other,r-1,c);
+	}
+    }
+    public void misscountercount(){
+	if(attack){
+	    misscounter=misscounter+0;
+	}
+	else{
+	    misscounter=misscounter+1;
+	}
+    }
+
+    public void superattack(Board other, int r, int c){
+	if(misscounter>6){
+	    if(r+5<15 && c+5<15){
+		int x=0;
+		while(x<5){
+		    int y=0;
+		    while(y<4){
+			attack(other, r+y,c+x);
+			y=y+1;
+		    }
+		    x=x+1;
+		}
+	    }
 	}
     }
 
