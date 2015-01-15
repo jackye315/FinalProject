@@ -25,8 +25,7 @@ int rows = 13;
 int cols = 13;
 float x1, x2, x3, x4, x5;
 float y1, y2, y3, y4, y5;
-int shipW = 90;
-int shipH = 30;
+int shipClicked;
 boolean overShip = false;
 boolean clicked = false;
 float xOffset = 0.0;
@@ -44,11 +43,11 @@ void setup(){
   }
   x1 = 30;
   y1 = 400;
-  x2 = 150;
+  x2 = 120;
   y2 = 400;
-  x3 = 270; 
+  x3 = 240; 
   y3 = 400;
-  x4 = 390;
+  x4 = 360;
   y4 = 400;
   x5 = 510;
   y5 = 400;
@@ -63,8 +62,9 @@ void draw(){
       }
   }
   createShip();
-  if (mouseX > x1-shipW && mouseX < x1+shipW && 
-      mouseY > y1-shipH && mouseY < y1+shipH) {
+  if (checkShip(x1, y1, 60, 30) || checkShip(x2, y2, 90, 30) ||
+      checkShip(x3, y3, 90, 30) || checkShip(x4, y4, 120, 30) ||
+      checkShip(x5, y5, 120, 30)) {     
     overShip = true;  
     if(!clicked) { 
       stroke(255); 
@@ -77,13 +77,43 @@ void draw(){
   }
 }
 
+
+boolean checkShip(float x, float y, int w, int h){
+  whichShip(x);
+  if(mouseX > x-w && mouseX < x+w && 
+     mouseY > y-h && mouseY < y+h){
+       return true;
+     } else{
+       return false;
+     }
+}
+  
+void whichShip(float x){
+  if(x == x1){
+    shipClicked = 1;
+  }
+  if(x == x2){
+    shipClicked = 2;
+  }
+  if(x == x3){
+    shipClicked = 3;
+  }
+  if(x == x4){
+    shipClicked = 4;
+  }
+  if(x == x5){
+    shipClicked = 5;
+  }
+}
+  
+
 void createShip(){
    fill(0);
-   rect(x1, y1, 90, 30, 100);
+   rect(x1, y1, 60, 30, 100);
    rect(x2, y2, 90, 30, 100);
    rect(x3, y3, 90, 30, 100);
-   rect(x4, y4, 90, 30, 100);
-   rect(x5, y5, 90, 30, 100);
+   rect(x4, y4, 120, 30, 100);
+   rect(x5, y5, 120, 30, 100);
   
 }
 
@@ -94,15 +124,51 @@ void mousePressed() {
   } else {
     clicked = false;
   }
-  xOffset = mouseX-x1; 
-  yOffset = mouseY-y1; 
+  if(shipClicked == 1){
+    xOffset = mouseX-x1; 
+    yOffset = mouseY-y1;
+  }
+  if(shipClicked == 2){
+    xOffset = mouseX-x2; 
+    yOffset = mouseY-y2;
+  }
+  if(shipClicked == 3){
+    xOffset = mouseX-x3; 
+    yOffset = mouseY-y3;
+  }
+  if(shipClicked == 4){
+    xOffset = mouseX-x4; 
+    yOffset = mouseY-y4;
+  }
+  if(shipClicked == 5){
+    xOffset = mouseX-x5; 
+    yOffset = mouseY-y5;
+  }
 
 }
 
 void mouseDragged() {
   if(clicked) {
-    x1 = mouseX-xOffset; 
-    y1 = mouseY-yOffset; 
+    if(shipClicked == 1){
+      x1 = mouseX-xOffset; 
+      y1 = mouseY-yOffset; 
+    }
+    if(shipClicked == 2){
+      x2 = mouseX-xOffset; 
+      y2 = mouseY-yOffset; 
+    }
+    if(shipClicked == 3){
+      x3 = mouseX-xOffset; 
+      y3 = mouseY-yOffset; 
+    }
+    if(shipClicked == 4){
+      x4 = mouseX-xOffset; 
+      y4 = mouseY-yOffset; 
+    }
+    if(shipClicked == 5){
+      x5 = mouseX-xOffset; 
+      y5 = mouseY-yOffset; 
+    }
   }
 }
 
