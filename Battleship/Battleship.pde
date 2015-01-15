@@ -1,52 +1,52 @@
-class Board{
+class Cell{
     
-  int[][] board;
-  int rows, cols;
-  int cond; //-1:empty; 0:ship; 1:hit; 2:miss
+  float x, y;
+  float w, h;
+  int cond;
 
-  Board(){
-    board = new int[15][15];
-    this.rows = 15;
-    this.cols = 15;
-    this.clear();
-    }
-
-  void clear(){
-    for(int h = 0; h < board.length; h++){
-      for(int w = 0; w < board[h].length; w++){
-    board[h][w]=-1;
-      }
-    }
+  Cell(float tempX, float tempY, float tempW, float tempH, int cond){
+    x = tempX;
+    y = tempY;
+    w = tempW;
+    h = tempH;
   }
-
+  
+  void display(int x, int y, int c){
+    stroke(225);
+    fill(c);
+    rect(x,y,30,30);
+  }
+  
 }
 
-Board[][] player;
-Board[][] oppponent;
+Cell[][] player;
+Cell[][] opponent;
+int rows = 13;
+int cols = 13;
 
 void setup(){
-  size(900,600);
-  player = new Board[15][15];
-  for (int i = 0; i < 15; i++){
-      for (int j = 0; j < 15; j++){
-          int value;
-          if(player[i][j]==-1){
-             value = 100;
-          }
-          else{
-              value = 0;
-          }
-          player[i][j].display(i*30,j*30,30,30,value);
+  size(800,600);
+  player = new Cell[rows][cols];
+  opponent = new Cell[rows][cols];
+  for (int i = 0; i < rows; i++){
+      for (int j = 0; j < cols; j++){
+          player[i][j] = new Cell(i*30,j*30,30,30,-1);
+          opponent[i][j] = new Cell(i*30+400,j*30,30,30,-1);
       }
   }
 }
 
-void display(int x, int y, int w, int h, int c){
-  stroke(225);
-  fill(c);
-  rect(x,y,w,h);
+void draw(){
+    background(200);
+    for (int i = 0; i < rows; i++){
+       for (int j = 0; j < cols; j++){
+          player[i][j].display(i*30, j*30, 0);
+          opponent[i][i].display(i*30+400, j*30, 0);
+      }
+  }
 }
-  
+
+
           
           
           
