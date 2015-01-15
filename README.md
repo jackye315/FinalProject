@@ -50,3 +50,6 @@ Worked on AI stuff like how the AI attacks, know when to attack a certain area, 
 
 January 14, 2015
 Worked on the grid. Each cell has a variable called cond which checks if there is a ship or of it's empty. Continued working on the ship moving problem. Currently, only one ship can be dragged.
+
+January 15, 2015
+Worked more on dragging each ship. Also looked at how to insert images, found a few ship images.
