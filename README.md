@@ -47,3 +47,6 @@ Decided the processing front part was really confusing so we instead worked on t
 
 January 13, 2015
 Worked on AI stuff like how the AI attacks, know when to attack a certain area, etc. Also discuess more on how we can use processing by adding more variables to the grid. 
+
+January 14, 2015
+Worked on the grid. Each cell has a variable called cond which checks if there is a ship or of it's empty. Continued working on the ship moving problem. Currently, only one ship can be dragged.
