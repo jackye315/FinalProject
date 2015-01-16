@@ -31,6 +31,7 @@ int shipClicked;
 boolean overShip = false;
 boolean clicked = false;
 boolean rotate = false;
+boolean locked = false;
 float xOffset = 0.0;
 float yOffset = 0.0;
 
@@ -56,14 +57,14 @@ void setup(){
   y5 = 400;
   w1 = 60;
   w2 = 90;
-  w3 = 90;
+  w3 = 91;
   w4 = 120;
-  w5 = 120;
-  h1 = 30;
-  h2 = 30;
+  w5 = 121;
+  h1 = 28;
+  h2 = 29;
   h3 = 30;
-  h4 = 30;
-  h5 = 30;
+  h4 = 31;
+  h5 = 32;
   
 }
 
@@ -152,7 +153,6 @@ void rotateShip(int w, int h){
  
 }
   
-
 void createShip(){
    fill(0);
    rect(x1, y1, w1, h1, 100);
@@ -160,7 +160,26 @@ void createShip(){
    rect(x3, y3, w3, h3, 100);
    rect(x4, y4, w4, h4, 100);
    rect(x5, y5, w5, h5, 100);
-  
+}
+
+void lockShip(){
+  if(!locked){
+    if(x1 < 360 && x2 < 360 && x3 < 360 && x4 < 360 && x5 < 360 &&
+       y1 < 360 && y2 < 360 && y3 < 360 && y4 < 360 && y5 < 360){
+         locked = true;
+         x1 = int(x1) / 30 * 30;
+         x2 = int(x2) / 30 * 30;
+         x3 = int(x3) / 30 * 30;
+         x4 = int(x4) / 30 * 30;
+         x5 = int(x5) / 30 * 30;
+         y1 = int(y1) / 30 * 30;
+         y2 = int(y2) / 30 * 30;
+         y3 = int(y3) / 30 * 30;
+         y4 = int(y4) / 30 * 30;
+         y5 = int(y5) / 30 * 30;
+       
+       }
+    }
 }
 
 void mousePressed() {
@@ -199,10 +218,10 @@ void mousePressed() {
 }
 
 void mouseDragged() {
-  if(clicked) {
+  if(!locked && clicked) {
     if(shipClicked == 1){
-      x1 = mouseX-xOffset; 
-      y1 = mouseY-yOffset; 
+      x1 = mouseX-xOffset;  
+      y1 = mouseY-yOffset;
     }
     if(shipClicked == 2){
       x2 = mouseX-xOffset; 
@@ -226,6 +245,13 @@ void mouseDragged() {
 void mouseReleased() {
   clicked = false;
 }
+
+void keyPressed() {
+  if(key == ENTER){
+      lockShip();
+    }
+}
+
           
           
           
