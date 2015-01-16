@@ -55,3 +55,6 @@ January 15, 2015
 Worked more on dragging each ship. Also looked at how to insert images, found a few ship images.
 Each ship can now be moved and rotated. After all the ships are moved into their position, their coordinates will be locked and the battle begins.
 Bugs - Some of the ships randomly change position when the mouse is dragging another ship.
+
+January 16, 2015
+Worked on text that will be showed depending on if ship is locked or not. Also began inserting methods onto the processing Battleship.
