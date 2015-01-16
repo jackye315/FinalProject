@@ -4,17 +4,26 @@ class Cell{
   float w, h;
   int cond;
 
-  Cell(float tempX, float tempY, float tempW, float tempH, int cond){
+  Cell(float tempX, float tempY, float tempW, float tempH, int c){
     x = tempX;
     y = tempY;
     w = tempW;
     h = tempH;
+    cond = c;
   }
   
   void display(int x, int y, int r, int g, int b){
     stroke(225);
     fill(r,g,b);
     rect(x,y,30,30);
+  }
+  
+  void setCond(int c){
+    cond = c;
+  }
+  
+  int getCond(){
+    return cond;
   }
   
 }
@@ -179,9 +188,31 @@ void lockShip(){
          y3 = int(y3) / 30 * 30;
          y4 = int(y4) / 30 * 30;
          y5 = int(y5) / 30 * 30;
-       
+         addShip((int)x1/30, (int)y1/30, (int)w1/30, (int)h1/30);
+         println(x1);
+         println((int)x1/30);
+         addShip((int)x2/30, (int)y2/30, (int)w2/30, (int)h2/30);
+         addShip((int)x3/30, (int)y3/30, (int)w3/30, (int)h3/30);
+         addShip((int)x4/30, (int)y4/30, (int)w4/30, (int)h4/30);
+         addShip((int)x5/30, (int)y5/30, (int)w5/30, (int)h5/30);
        }
     }
+    
+}
+
+void addShip(int x, int y, int w, int h){
+  if(locked){
+    for(int i = 0; i < h; i++){
+      for(int j = 0; j < w; j++){
+        player[y+i][x+j].setCond(1);
+      }
+    }
+    for(int r = 0; r < 15; r++){
+      for(int c = 0; c < 15; c++){
+        //println(player[h][w].getCond()); 
+      }
+    }
+  }
 }
 
 void mousePressed() {
