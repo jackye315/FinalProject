@@ -25,9 +25,12 @@ int rows = 13;
 int cols = 13;
 float x1, x2, x3, x4, x5;
 float y1, y2, y3, y4, y5;
+int w1, w2, w3, w4, w5;
+int h1, h2, h3, h4, h5;
 int shipClicked;
 boolean overShip = false;
 boolean clicked = false;
+boolean rotate = false;
 float xOffset = 0.0;
 float yOffset = 0.0;
 
@@ -51,6 +54,17 @@ void setup(){
   y4 = 400;
   x5 = 510;
   y5 = 400;
+  w1 = 60;
+  w2 = 90;
+  w3 = 90;
+  w4 = 120;
+  w5 = 120;
+  h1 = 30;
+  h2 = 30;
+  h3 = 30;
+  h4 = 30;
+  h5 = 30;
+  
 }
 
 void draw(){
@@ -105,46 +119,83 @@ void whichShip(float x){
     shipClicked = 5;
   }
 }
+
+void rotateShip(int w, int h){
+  if(overShip && mouseButton == RIGHT){
+    if(!rotate){
+       rotate = true;
+    }
+    if(rotate){
+      rotate = false;
+    }
+         if(w == w1){
+           w1 = h;
+           h1 = w;
+         }
+         if(w == w2){
+           w2 = h;
+           h2 = w;
+         }
+         if(w == w3){
+           w3 = h;
+           h3 = w;
+         }
+         if(w == w4){
+           w4 = h;
+           h4 = w;
+         }
+         if(w == w5){
+           w5 = h;
+           h5 = w;
+         }
+  }         
+ 
+}
   
 
 void createShip(){
    fill(0);
-   rect(x1, y1, 60, 30, 100);
-   rect(x2, y2, 90, 30, 100);
-   rect(x3, y3, 90, 30, 100);
-   rect(x4, y4, 120, 30, 100);
-   rect(x5, y5, 120, 30, 100);
+   rect(x1, y1, w1, h1, 100);
+   rect(x2, y2, w2, h2, 100);
+   rect(x3, y3, w3, h3, 100);
+   rect(x4, y4, w4, h4, 100);
+   rect(x5, y5, w5, h5, 100);
   
 }
 
 void mousePressed() {
-  if(overShip) { 
+  if(overShip && mouseButton == LEFT) { 
     clicked = true; 
     fill(255, 255, 255);
   } else {
     clicked = false;
   }
   if(shipClicked == 1){
+    rotateShip(w1, h1);
     xOffset = mouseX-x1; 
     yOffset = mouseY-y1;
   }
   if(shipClicked == 2){
+    rotateShip(w2, h2);
     xOffset = mouseX-x2; 
     yOffset = mouseY-y2;
   }
   if(shipClicked == 3){
+    rotateShip(w3, h3);
     xOffset = mouseX-x3; 
     yOffset = mouseY-y3;
   }
   if(shipClicked == 4){
+    rotateShip(w4, h4);
     xOffset = mouseX-x4; 
     yOffset = mouseY-y4;
   }
   if(shipClicked == 5){
+    rotateShip(w5, h5);
     xOffset = mouseX-x5; 
     yOffset = mouseY-y5;
   }
-
+ 
 }
 
 void mouseDragged() {
