@@ -203,6 +203,27 @@ public class Board{
 	}
     }
 
+
+    public boolean displayText(){
+	if(locked){
+	    String s="PLAY";
+	}
+	else{
+	    String s="Start by placing ships on your grid(the left one)";
+	}
+	//text(String, x-coordinate, y-coordinate);
+	text(s,30,30);
+    }
+
+    void mouseClicked(){
+	//if(locked){
+	//can pick up ship
+	//}
+	//else{
+	//n put down ship on grid
+	//  }
+    }
+
 }
 
 
