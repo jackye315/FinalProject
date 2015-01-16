@@ -77,9 +77,9 @@ void draw(){
       }
   }
   createShip();
-  if (checkShip(x1, y1, 60, 30) || checkShip(x2, y2, 90, 30) ||
-      checkShip(x3, y3, 90, 30) || checkShip(x4, y4, 120, 30) ||
-      checkShip(x5, y5, 120, 30)) {     
+  if (checkShip(x1, y1, w1, h1) || checkShip(x2, y2, w2, h2) ||
+      checkShip(x3, y3, w3, h3) || checkShip(x4, y4, w4, h4) ||
+      checkShip(x5, y5, w5, h5)) {     
     overShip = true;  
     if(!clicked) { 
       stroke(255); 
