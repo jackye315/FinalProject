@@ -50,8 +50,8 @@ void setup(){
   opponent = new Cell[rows][cols];
   for (int i = 0; i < rows; i++){
       for (int j = 0; j < cols; j++){
-          player[i][j] = new Cell(i*30,j*30,30,30,-1);
-          opponent[i][j] = new Cell(i*30+400,j*30,30,30,-1);
+          player[i][j] = new Cell(i*30,j*30,30,30,0);
+          opponent[i][j] = new Cell(i*30+400,j*30,30,30,0);
       }
   }
   x1 = 30;
@@ -69,11 +69,11 @@ void setup(){
   w3 = 91;
   w4 = 120;
   w5 = 121;
-  h1 = 28;
-  h2 = 29;
-  h3 = 30;
-  h4 = 31;
-  h5 = 32;
+  h1 = 30;
+  h2 = 31;
+  h3 = 32;
+  h4 = 33;
+  h5 = 34;
   
 }
 
@@ -191,6 +191,9 @@ void lockShip(){
          addShip((int)x1/30, (int)y1/30, (int)w1/30, (int)h1/30);
          println(x1);
          println((int)x1/30);
+         println((int)y1/30);
+         println((int)w1/30);
+         println((int)h1/30);
          addShip((int)x2/30, (int)y2/30, (int)w2/30, (int)h2/30);
          addShip((int)x3/30, (int)y3/30, (int)w3/30, (int)h3/30);
          addShip((int)x4/30, (int)y4/30, (int)w4/30, (int)h4/30);
@@ -205,11 +208,6 @@ void addShip(int x, int y, int w, int h){
     for(int i = 0; i < h; i++){
       for(int j = 0; j < w; j++){
         player[y+i][x+j].setCond(1);
-      }
-    }
-    for(int r = 0; r < 15; r++){
-      for(int c = 0; c < 15; c++){
-        //println(player[h][w].getCond()); 
       }
     }
   }
