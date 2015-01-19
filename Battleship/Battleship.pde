@@ -52,6 +52,7 @@ boolean locked = false;
 boolean start = false;
 boolean end = false;
 boolean turn = true;
+boolean lose = false;
 float xOffset = 0.0;
 float yOffset = 0.0;
 //PImage img=loadImage("Ship4.jpg", "jpg");
@@ -91,13 +92,14 @@ void setup(){
 }
 
 void draw(){
-    background(200);
-    for (int i = 0; i < rows; i++){
-       for (int j = 0; j < cols; j++){
-          player[i][j].display(j*30, i*30);
-          opponent[i][j].display(j*30+400, i*30);
-       }
-    }
+  background(200);
+  for (int i = 0; i < rows; i++){
+    for (int j = 0; j < cols; j++){
+       player[i][j].display(j*30, i*30);
+       opponent[i][j].display(j*30+400, i*30);
+     }
+   }
+  instructions();  
   createShip();
   if (checkShip(x1, y1, w1, h1) || checkShip(x2, y2, w2, h2) ||
       checkShip(x3, y3, w3, h3) || checkShip(x4, y4, w4, h4) ||
@@ -112,10 +114,17 @@ void draw(){
     fill(100);
     overShip = false;
   }
+  if(start){
+    if(isDead(player) || isDead(opponent)){
+      if(isDead(player)){
+        lose = true;
+      }
+      start = false;
+      end = true;
+    }
+  }
   //image(img,0,0);
-  reveal();
-  //playerAttack();
- 
+  //reveal();
 }
 
 
@@ -313,13 +322,6 @@ void oppAttack(){
     int ycor = 0;
     for(int tries = 0; tries < 100; tries++){
       if(target){
-        if(tempxcor!=0 && tempycor!=0){
-          xcor = tempxcor - 1;
-          ycor = tempycor - 1;
-          if(player[ycor][xcor].getCond()==0 || player[ycor][xcor].getCond()==1){
-            break;
-          }
-        }
         if(tempxcor!=0){
           xcor = tempxcor - 1;
           ycor = tempycor;
@@ -334,13 +336,6 @@ void oppAttack(){
             break;
           }
         }
-        if(tempxcor!=12 && tempycor!=0){
-          xcor = tempxcor + 1;
-          ycor = tempycor - 1;
-          if(player[ycor][xcor].getCond()==0 || player[ycor][xcor].getCond()==1){
-            break;
-          }
-        }
         if(tempxcor!=12){
           xcor = tempxcor + 1;
           ycor = tempycor;
@@ -348,22 +343,8 @@ void oppAttack(){
             break;
           }
         }
-        if(tempxcor!=0 && tempycor!=12){
-          xcor = tempxcor - 1;
-          ycor = tempycor + 1;
-          if(player[ycor][xcor].getCond()==0 || player[ycor][xcor].getCond()==1){
-            break;
-          }
-        }
         if(tempycor!=12){
           xcor = tempxcor;
-          ycor = tempycor + 1;
-          if(player[ycor][xcor].getCond()==0 || player[ycor][xcor].getCond()==1){
-            break;
-          }
-        }
-        if(tempxcor!=12 && tempycor!=12){
-          xcor = tempxcor + 1;
           ycor = tempycor + 1;
           target = false;
           if(player[ycor][xcor].getCond()==0 || player[ycor][xcor].getCond()==1){
@@ -388,30 +369,43 @@ void oppAttack(){
        }
 }
       
-      
 
-boolean isAlive(){
-  for(int i = 0; i < rows; i++){
-    for(int j = 0; j < cols; j++){
-      if(opponent[i][j].getCond()==1){
-        return false;
-      }
-      if(player[i][j].getCond()==1){
-        return false;
+boolean isDead(Cell[][]a){
+    boolean dead = true;
+    for(int i = 0; i < rows; i++){
+      for(int j = 0; j < cols; j++){
+        if(a[i][j].getCond()==1){
+          dead = false;
+        }
       }
     }
-  }
-  start = false;
-  end = true;
-  return true;
+    return dead;
 }
   
 
 void instructions(){
+ textSize(25);
+ fill(0, 0, 0, 200);
+ text("Player", 160, 460);
+ text("Opponent", 540, 460);
  if(!locked){
-   
+   text("To set up the game, drag the ships to the board.", 30, 520); 
+   text("Right click the ship to rotate.", 30, 550);
+   text("Click enter when done.", 30, 580);
  } 
  if(start){
+   fill(102, 0, 0);
+   text("Red = Hit", 30, 520);
+   fill(0, 102, 153);
+   text("Blue = Miss", 30, 550); 
+ }
+ if(!start && end){
+   if(!lose){
+     text("You win!", 360, 520);
+   }
+   else{
+     text("You lose!", 360, 520);
+   }
  }
 }
 
