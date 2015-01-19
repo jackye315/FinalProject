@@ -62,3 +62,10 @@ After the ships are locked into their position, the 2D array takes in those coor
 
 January 18, 2015
 Fixed the addShip() method. Included the opponent addShip() which randomly adds ships onto the opponent's board.
+
+January 19, 2015
+Added the attack methods. Player chooses which cell to attack by clicking on the opponent's board. The opponent randomly picks a cell on the player's board and if it hits a ship, it will attack around that area. 
+Instructions are added in.
+Bugs - Some of the ships randomly change position when the mouse is dragging another ship. 
+       The game won't begin if the ships are placed too close to the edge of the board.
+       The player's ships can be placed over one another.
