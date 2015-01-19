@@ -4,6 +4,7 @@ class Cell{
   float w, h;
   int cond;
 
+
   Cell(float tempX, float tempY, float tempW, float tempH, int c){
     x = tempX;
     y = tempY;
@@ -43,8 +44,10 @@ boolean rotate = false;
 boolean locked = false;
 float xOffset = 0.0;
 float yOffset = 0.0;
+  PImage img=loadImage("Ship4.jpg", "jpg");
 
 void setup(){
+
   size(800,600);
   player = new Cell[rows][cols];
   opponent = new Cell[rows][cols];
@@ -99,6 +102,7 @@ void draw(){
     fill(100);
     overShip = false;
   }
+  image(img,0,0);
 }
 
 
