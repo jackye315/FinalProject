@@ -14,9 +14,7 @@ class Cell{
   }
   
   void display(int x, int y){
-    if(this.cond == 0){
-      fill(100, 100, 100);
-    }
+    fill(100, 100, 100);
     if(this.cond == 2){
       fill(102, 0, 0);
     }
@@ -60,7 +58,7 @@ float yOffset = 0.0;
 
 void setup(){
 
-  size(800,650);
+  size(830,650);
   player = new Cell[rows][cols];
   opponent = new Cell[rows][cols];
   for (int i = 0; i < rows; i++){
@@ -98,8 +96,8 @@ void draw(){
        for (int j = 0; j < cols; j++){
           player[i][j].display(j*30, i*30);
           opponent[i][j].display(j*30+400, i*30);
-      }
-  }
+       }
+    }
   createShip();
   if (checkShip(x1, y1, w1, h1) || checkShip(x2, y2, w2, h2) ||
       checkShip(x3, y3, w3, h3) || checkShip(x4, y4, w4, h4) ||
@@ -182,7 +180,7 @@ void rotateShip(int w, int h){
 }
   
 void createShip(){
-   fill(0, 0, 0, 50);
+   fill(0, 0, 0, 100);
    rect(x1, y1, w1, h1, 100);
    rect(x2, y2, w2, h2, 100);
    rect(x3, y3, w3, h3, 100);
@@ -214,35 +212,35 @@ void lockShip(){
          addShip((int)x5/30, (int)y5/30, (int)w5/30, (int)h5/30);
          for(int tries = 0; tries < 100; tries++){
            boolean added = false;
-           added = opponentShip((int)random(13), (int)random(13), (int)w1/30, (int)h1/30);
+           added = opponentShip((int)random(cols), (int)random(rows), (int)w1/30, (int)h1/30);
            if(added){
              break;
            }
          }
             for(int tries = 0; tries < 100; tries++){
            boolean added = false;
-           added = opponentShip((int)random(13), (int)random(13), (int)w2/30, (int)h2/30);
+           added = opponentShip((int)random(cols), (int)random(rows), (int)w2/30, (int)h2/30);
            if(added){
              break;
            }
          }
             for(int tries = 0; tries < 100; tries++){
            boolean added = false;
-           added = opponentShip((int)random(13), (int)random(13), (int)w3/30, (int)h3/30);
+           added = opponentShip((int)random(cols), (int)random(rows), (int)w3/30, (int)h3/30);
            if(added){
              break;
            }
          }
             for(int tries = 0; tries < 100; tries++){
            boolean added = false;
-           added = opponentShip((int)random(13), (int)random(13), (int)w4/30, (int)h4/30);
+           added = opponentShip((int)random(cols), (int)random(rows), (int)w4/30, (int)h4/30);
            if(added){
              break;
            }
          }
             for(int tries = 0; tries < 100; tries++){
            boolean added = false;
-           added = opponentShip((int)random(13), (int)random(13), (int)w5/30, (int)h5/30);
+           added = opponentShip((int)random(cols), (int)random(rows), (int)w5/30, (int)h5/30);
            if(added){
              break;
            }
@@ -278,7 +276,7 @@ boolean opponentShip(int x, int y, int w, int h){
 }
 
 boolean checkShip2(int x, int y, int w, int h){
-  if(x+w >= 13 || y+h >= 13){
+  if(x+w >= cols || y+h >= rows){
     return false;
   }
   for(int i = 0; i < h; i++){
@@ -291,41 +289,6 @@ boolean checkShip2(int x, int y, int w, int h){
   return true;
 }
 
-boolean attack(Cell[][]a, int xcor, int ycor){
-  if(a[ycor][xcor].getCond()==1){
-    a[ycor][xcor].setCond(2);
-    fill(102, 0, 0, 100);
-    if(!turn){
-      xcor += 400;
-      ycor += 400;
-    }
-    rect(xcor*30, ycor*30, 30, 30);
-    if(turn){
-      turn = false;
-    }
-    if(!turn){
-      turn = true;
-    }
-    return true;
-  }
-  if(a[ycor][xcor].getCond()==0){
-    a[ycor][xcor].setCond(3);
-    fill(0, 102, 153, 100);
-      if(!turn){
-        xcor += 400;
-        ycor += 400;
-      }
-    rect(xcor*30, ycor*30, 30, 30);
-      if(turn){
-      turn = false;
-    }
-    if(!turn){
-      turn = true;
-    }
-    return true;
-  }
-  return false;
-}
 
 void playerAttack(){
   if(start){
@@ -342,34 +305,94 @@ void playerAttack(){
   }
 }
   
+int tempxcor, tempycor;
+boolean target = false;
     
 void oppAttack(){    
     int xcor = 0;
     int ycor = 0;
     for(int tries = 0; tries < 100; tries++){
-      xcor = (int)random(13);
-      ycor = (int)random(13);
+      if(target){
+        if(tempxcor!=0 && tempycor!=0){
+          xcor = tempxcor - 1;
+          ycor = tempycor - 1;
+          if(player[ycor][xcor].getCond()==0 || player[ycor][xcor].getCond()==1){
+            break;
+          }
+        }
+        if(tempxcor!=0){
+          xcor = tempxcor - 1;
+          ycor = tempycor;
+          if(player[ycor][xcor].getCond()==0 || player[ycor][xcor].getCond()==1){
+            break;
+          }
+        }
+        if(tempycor!=0){
+          xcor = tempxcor;
+          ycor = tempycor - 1;
+          if(player[ycor][xcor].getCond()==0 || player[ycor][xcor].getCond()==1){
+            break;
+          }
+        }
+        if(tempxcor!=12 && tempycor!=0){
+          xcor = tempxcor + 1;
+          ycor = tempycor - 1;
+          if(player[ycor][xcor].getCond()==0 || player[ycor][xcor].getCond()==1){
+            break;
+          }
+        }
+        if(tempxcor!=12){
+          xcor = tempxcor + 1;
+          ycor = tempycor;
+          if(player[ycor][xcor].getCond()==0 || player[ycor][xcor].getCond()==1){
+            break;
+          }
+        }
+        if(tempxcor!=0 && tempycor!=12){
+          xcor = tempxcor - 1;
+          ycor = tempycor + 1;
+          if(player[ycor][xcor].getCond()==0 || player[ycor][xcor].getCond()==1){
+            break;
+          }
+        }
+        if(tempycor!=12){
+          xcor = tempxcor;
+          ycor = tempycor + 1;
+          if(player[ycor][xcor].getCond()==0 || player[ycor][xcor].getCond()==1){
+            break;
+          }
+        }
+        if(tempxcor!=12 && tempycor!=12){
+          xcor = tempxcor + 1;
+          ycor = tempycor + 1;
+          target = false;
+          if(player[ycor][xcor].getCond()==0 || player[ycor][xcor].getCond()==1){
+            break;
+          }
+        }
+      }
+      xcor = (int)random(cols);
+      ycor = (int)random(rows);
       if(player[ycor][xcor].getCond()==0 || player[ycor][xcor].getCond()==1){
         break;
       }
     }
     if(player[ycor][xcor].getCond()==1){
-      player[ycor][xcor].setCond(2);
-      fill(102, 0, 0, 100);
-      rect(xcor * 30, ycor * 30, 30, 30);
-    }
-    if(player[ycor][xcor].getCond()==0){
-      player[ycor][xcor].setCond(3);
-      fill(0, 102, 153, 100);
-      rect(xcor * 30, ycor * 30, 30, 30);
-    }
+       player[ycor][xcor].setCond(2);
+       target = true;
+       tempxcor = xcor; 
+       tempycor = ycor;
+       }
+       if(player[ycor][xcor].getCond()==0){
+          player[ycor][xcor].setCond(3);
+       }
 }
       
       
 
 boolean isAlive(){
-  for(int i = 0; i < 13; i++){
-    for(int j = 0; j < 13; j++){
+  for(int i = 0; i < rows; i++){
+    for(int j = 0; j < cols; j++){
       if(opponent[i][j].getCond()==1){
         return false;
       }
@@ -478,9 +501,9 @@ void keyPressed() {
 
 String toString(Cell[][]a){
   String result = "";
-  for(int h = 0; h < 13; h++){
+  for(int h = 0; h < rows; h++){
       result += "{";
-      for(int w = 0; w < 13; w++){
+      for(int w = 0; w < cols; w++){
         result += a[h][w].getCond();
         result += " ";
         }
