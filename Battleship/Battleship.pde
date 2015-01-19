@@ -13,11 +13,20 @@ class Cell{
     cond = c;
   }
   
-  void display(int x, int y, int r, int g, int b){
+  void display(int x, int y){
+    if(this.cond == 0){
+      fill(100, 100, 100);
+    }
+    if(this.cond == 2){
+      fill(102, 0, 0);
+    }
+    if(this.cond == 3){
+      fill(0, 102, 153);
+    }
     stroke(225);
-    fill(r,g,b);
     rect(x,y,30,30);
   }
+  
   
   void setCond(int c){
     cond = c;
@@ -43,13 +52,15 @@ boolean clicked = false;
 boolean rotate = false;
 boolean locked = false;
 boolean start = false;
+boolean end = false;
+boolean turn = true;
 float xOffset = 0.0;
 float yOffset = 0.0;
-  PImage img=loadImage("Ship4.jpg", "jpg");
+//PImage img=loadImage("Ship4.jpg", "jpg");
 
 void setup(){
 
-  size(800,600);
+  size(800,650);
   player = new Cell[rows][cols];
   opponent = new Cell[rows][cols];
   for (int i = 0; i < rows; i++){
@@ -85,8 +96,8 @@ void draw(){
     background(200);
     for (int i = 0; i < rows; i++){
        for (int j = 0; j < cols; j++){
-          player[i][j].display(i*30, j*30, 100, 100, 100);
-          opponent[i][i].display(i*30+400, j*30, 100, 100, 100);
+          player[i][j].display(j*30, i*30);
+          opponent[i][j].display(j*30+400, i*30);
       }
   }
   createShip();
@@ -103,7 +114,10 @@ void draw(){
     fill(100);
     overShip = false;
   }
-  image(img,0,0);
+  //image(img,0,0);
+  reveal();
+  //playerAttack();
+ 
 }
 
 
@@ -168,7 +182,7 @@ void rotateShip(int w, int h){
 }
   
 void createShip(){
-   fill(0);
+   fill(0, 0, 0, 50);
    rect(x1, y1, w1, h1, 100);
    rect(x2, y2, w2, h2, 100);
    rect(x3, y3, w3, h3, 100);
@@ -198,15 +212,45 @@ void lockShip(){
          addShip((int)x3/30, (int)y3/30, (int)w3/30, (int)h3/30);
          addShip((int)x4/30, (int)y4/30, (int)w4/30, (int)h4/30);
          addShip((int)x5/30, (int)y5/30, (int)w5/30, (int)h5/30);
-         opponentShip((int)random(13), (int)random(13), (int)w1/30, (int)h1/30);
-         opponentShip((int)random(13), (int)random(13), (int)w2/30, (int)h2/30);
-         opponentShip((int)random(13), (int)random(13), (int)w3/30, (int)h3/30);
-         opponentShip((int)random(13), (int)random(13), (int)w4/30, (int)h4/30);
-         opponentShip((int)random(13), (int)random(13), (int)w5/30, (int)h5/30);
-         start = true;
+         for(int tries = 0; tries < 100; tries++){
+           boolean added = false;
+           added = opponentShip((int)random(13), (int)random(13), (int)w1/30, (int)h1/30);
+           if(added){
+             break;
+           }
+         }
+            for(int tries = 0; tries < 100; tries++){
+           boolean added = false;
+           added = opponentShip((int)random(13), (int)random(13), (int)w2/30, (int)h2/30);
+           if(added){
+             break;
+           }
+         }
+            for(int tries = 0; tries < 100; tries++){
+           boolean added = false;
+           added = opponentShip((int)random(13), (int)random(13), (int)w3/30, (int)h3/30);
+           if(added){
+             break;
+           }
+         }
+            for(int tries = 0; tries < 100; tries++){
+           boolean added = false;
+           added = opponentShip((int)random(13), (int)random(13), (int)w4/30, (int)h4/30);
+           if(added){
+             break;
+           }
+         }
+            for(int tries = 0; tries < 100; tries++){
+           boolean added = false;
+           added = opponentShip((int)random(13), (int)random(13), (int)w5/30, (int)h5/30);
+           if(added){
+             break;
+           }
+         }
+        start = true;
        }
+       
     }
-    
 }
 
 void addShip(int x, int y, int w, int h){
@@ -219,19 +263,143 @@ void addShip(int x, int y, int w, int h){
   }
 }
 
-void opponentShip(){
+boolean opponentShip(int x, int y, int w, int h){
    if(locked){
-    for(int i = 0; i < h; i++){
-      for(int j = 0; j < w; j++){
-        opponent[y+i][x+j].setCond(1);
+     if(checkShip2(x, y, w, h)){
+       for(int i = 0; i < h; i++){
+         for(int j = 0; j < w; j++){
+           opponent[y+i][x+j].setCond(1);
+         }
+       }
+       return true;
+     }
+   }
+  return false;
+}
+
+boolean checkShip2(int x, int y, int w, int h){
+  if(x+w >= 13 || y+h >= 13){
+    return false;
+  }
+  for(int i = 0; i < h; i++){
+    for(int j = 0; j < w; j++){
+      if(opponent[y+i][x+j].getCond()!=0){
+        return false;
+      }
+    }
+  }
+  return true;
+}
+
+boolean attack(Cell[][]a, int xcor, int ycor){
+  if(a[ycor][xcor].getCond()==1){
+    a[ycor][xcor].setCond(2);
+    fill(102, 0, 0, 100);
+    if(!turn){
+      xcor += 400;
+      ycor += 400;
+    }
+    rect(xcor*30, ycor*30, 30, 30);
+    if(turn){
+      turn = false;
+    }
+    if(!turn){
+      turn = true;
+    }
+    return true;
+  }
+  if(a[ycor][xcor].getCond()==0){
+    a[ycor][xcor].setCond(3);
+    fill(0, 102, 153, 100);
+      if(!turn){
+        xcor += 400;
+        ycor += 400;
+      }
+    rect(xcor*30, ycor*30, 30, 30);
+      if(turn){
+      turn = false;
+    }
+    if(!turn){
+      turn = true;
+    }
+    return true;
+  }
+  return false;
+}
+
+void playerAttack(){
+  if(start){
+    if(mouseX > 390 && mouseX < 790 && mouseY < 400){
+      if(opponent[mouseY/30][(mouseX-400)/30].getCond()==1){
+        opponent[mouseY/30][(mouseX-400)/30].setCond(2);
+        oppAttack();
+      }
+      if(opponent[mouseY/30][(mouseX-400)/30].getCond()==0){
+        opponent[mouseY/30][(mouseX-400)/30].setCond(3);
+        oppAttack();
       }
     }
   }
 }
-
-void attack(Cell[][]a){
-  if(start){
+  
     
+void oppAttack(){    
+    int xcor = 0;
+    int ycor = 0;
+    for(int tries = 0; tries < 100; tries++){
+      xcor = (int)random(13);
+      ycor = (int)random(13);
+      if(player[ycor][xcor].getCond()==0 || player[ycor][xcor].getCond()==1){
+        break;
+      }
+    }
+    if(player[ycor][xcor].getCond()==1){
+      player[ycor][xcor].setCond(2);
+      fill(102, 0, 0, 100);
+      rect(xcor * 30, ycor * 30, 30, 30);
+    }
+    if(player[ycor][xcor].getCond()==0){
+      player[ycor][xcor].setCond(3);
+      fill(0, 102, 153, 100);
+      rect(xcor * 30, ycor * 30, 30, 30);
+    }
+}
+      
+      
+
+boolean isAlive(){
+  for(int i = 0; i < 13; i++){
+    for(int j = 0; j < 13; j++){
+      if(opponent[i][j].getCond()==1){
+        return false;
+      }
+      if(player[i][j].getCond()==1){
+        return false;
+      }
+    }
+  }
+  start = false;
+  end = true;
+  return true;
+}
+  
+
+void instructions(){
+ if(!locked){
+   
+ } 
+ if(start){
+ }
+}
+
+
+void reveal(){
+  if(start){
+  textSize(10);
+  text(toString(player), 30, 430); 
+  fill(0, 102, 153, 51);
+  text(toString(opponent), 430, 430);
+  fill(0, 102, 153, 51);
   }
 }
 
@@ -267,7 +435,10 @@ void mousePressed() {
     xOffset = mouseX-x5; 
     yOffset = mouseY-y5;
   }
- 
+}
+
+void mouseClicked(){
+    playerAttack();
 }
 
 void mouseDragged() {
@@ -305,6 +476,18 @@ void keyPressed() {
     }
 }
 
-          
+String toString(Cell[][]a){
+  String result = "";
+  for(int h = 0; h < 13; h++){
+      result += "{";
+      for(int w = 0; w < 13; w++){
+        result += a[h][w].getCond();
+        result += " ";
+        }
+      result += "}";
+      result += "\n";
+    }
+  return result;        
+}  
           
           
