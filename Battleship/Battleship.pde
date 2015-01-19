@@ -41,6 +41,7 @@ boolean overShip = false;
 boolean clicked = false;
 boolean rotate = false;
 boolean locked = false;
+boolean start = false;
 float xOffset = 0.0;
 float yOffset = 0.0;
 
@@ -189,15 +190,16 @@ void lockShip(){
          y4 = int(y4) / 30 * 30;
          y5 = int(y5) / 30 * 30;
          addShip((int)x1/30, (int)y1/30, (int)w1/30, (int)h1/30);
-         println(x1);
-         println((int)x1/30);
-         println((int)y1/30);
-         println((int)w1/30);
-         println((int)h1/30);
          addShip((int)x2/30, (int)y2/30, (int)w2/30, (int)h2/30);
          addShip((int)x3/30, (int)y3/30, (int)w3/30, (int)h3/30);
          addShip((int)x4/30, (int)y4/30, (int)w4/30, (int)h4/30);
          addShip((int)x5/30, (int)y5/30, (int)w5/30, (int)h5/30);
+         opponentShip((int)random(13), (int)random(13), (int)w1/30, (int)h1/30);
+         opponentShip((int)random(13), (int)random(13), (int)w2/30, (int)h2/30);
+         opponentShip((int)random(13), (int)random(13), (int)w3/30, (int)h3/30);
+         opponentShip((int)random(13), (int)random(13), (int)w4/30, (int)h4/30);
+         opponentShip((int)random(13), (int)random(13), (int)w5/30, (int)h5/30);
+         start = true;
        }
     }
     
@@ -210,6 +212,22 @@ void addShip(int x, int y, int w, int h){
         player[y+i][x+j].setCond(1);
       }
     }
+  }
+}
+
+void opponentShip(){
+   if(locked){
+    for(int i = 0; i < h; i++){
+      for(int j = 0; j < w; j++){
+        opponent[y+i][x+j].setCond(1);
+      }
+    }
+  }
+}
+
+void attack(Cell[][]a){
+  if(start){
+    
   }
 }
 
