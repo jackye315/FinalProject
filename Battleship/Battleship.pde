@@ -16,10 +16,10 @@ class Cell{
   void display(int x, int y){
     fill(100, 100, 100);
     if(this.cond == 2){
-      fill(102, 0, 0);
+      fill(102, 0, 0, 150);
     }
     if(this.cond == 3){
-      fill(0, 102, 153);
+      fill(0, 102, 153, 100);
     }
     stroke(225);
     rect(x,y,30,30);
@@ -199,8 +199,8 @@ void createShip(){
 
 void lockShip(){
   if(!locked){
-    if(x1 < 360 && x2 < 360 && x3 < 360 && x4 < 360 && x5 < 360 &&
-       y1 < 360 && y2 < 360 && y3 < 360 && y4 < 360 && y5 < 360 &&
+    if(x1+w1 <= 420 && x2+w2 <= 420 && x3+w3 <= 420 && x4+w4 <= 420 && x5+w5 <= 420 &&
+       y1+h1 <= 420 && y2+h2 <= 420 && y3+h3 <= 420 && y4+h4 <= 420 && y5+h5 <= 420 &&
        x1 > 0 && x2 > 0 && x3 > 0 && x4 > 0 && x5 > 0 &&
        y1 > 0 && y2 > 0 && y3 > 0 && y4 > 0 && y5 > 0){
          locked = true;
