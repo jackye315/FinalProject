@@ -25,6 +25,18 @@ class Cell{
     rect(x,y,30,30);
   }
   
+  void display2(int x, int y){
+    fill(100, 100, 100);
+    if(this.cond == 1){
+      fill(200, 100, 50, 150);
+    }
+    if(this.cond == 0){
+      fill(0, 102, 153, 100);
+    }
+    stroke(225);
+    rect(x,y,30,30);
+  }
+  
   
   void setCond(int c){
     cond = c;
@@ -45,6 +57,7 @@ float y1, y2, y3, y4, y5;
 int w1, w2, w3, w4, w5;
 int h1, h2, h3, h4, h5;
 int shipClicked;
+boolean overbox=false;
 boolean overShip = false;
 boolean clicked = false;
 boolean rotate = false;
@@ -56,6 +69,25 @@ boolean lose = false;
 float xOffset = 0.0;
 float yOffset = 0.0;
 //PImage img=loadImage("Ship4.jpg", "jpg");
+
+void show(){
+  if (mouseX>300 && mouseX<500 && mouseY>300 && mouseY<500){
+        for (int i = 0; i < rows; i++){
+    for (int j = 0; j < cols; j++){
+       opponent[i][j].display2(j*30+400, i*30);
+  }
+        }
+  }
+  else{
+    overbox=false;
+  }
+
+}
+
+
+
+
+
 
 void setup(){
 
@@ -80,19 +112,25 @@ void setup(){
   y5 = 400;
   w1 = 60;
   w2 = 90;
-  w3 = 91;
+  w3 = 90;
   w4 = 120;
-  w5 = 121;
+  w5 = 150;
   h1 = 30;
-  h2 = 31;
-  h3 = 32;
-  h4 = 33;
-  h5 = 34;
+  h2 = 30;
+  h3 = 30;
+  h4 = 30;
+  h5 = 30;
   
 }
-
+String s="Click here for a hint";
 void draw(){
+
   background(200);
+  if(start){
+  fill(255);
+  rect(400,400,100,100);
+  text(s,400,400,100,80);
+  }
   for (int i = 0; i < rows; i++){
     for (int j = 0; j < cols; j++){
        player[i][j].display(j*30, i*30);
@@ -114,13 +152,19 @@ void draw(){
     fill(100);
     overShip = false;
   }
+
   if(start){
+    text("Misscounter:",290,520);
+        text(misscounterplayer,450,520);
     if(isDead(player) || isDead(opponent)){
       if(isDead(player)){
         lose = true;
       }
+
       start = false;
       end = true;
+      clear();
+      text("Game Over", 400, 400);
     }
   }
   //image(img,0,0);
@@ -298,16 +342,22 @@ boolean checkShip2(int x, int y, int w, int h){
   return true;
 }
 
+int misscounterplayer=0;
+int misscounteropp=0;
 
 void playerAttack(){
+
   if(start){
     if(mouseX > 390 && mouseX < 790 && mouseY < 400){
       if(opponent[mouseY/30][(mouseX-400)/30].getCond()==1){
         opponent[mouseY/30][(mouseX-400)/30].setCond(2);
+        misscounterplayer=0;
         oppAttack();
       }
       if(opponent[mouseY/30][(mouseX-400)/30].getCond()==0){
         opponent[mouseY/30][(mouseX-400)/30].setCond(3);
+        misscounterplayer=misscounterplayer+1;
+
         oppAttack();
       }
     }
@@ -360,12 +410,15 @@ void oppAttack(){
     }
     if(player[ycor][xcor].getCond()==1){
        player[ycor][xcor].setCond(2);
+                 misscounteropp=0;
+       
        target = true;
        tempxcor = xcor; 
        tempycor = ycor;
        }
        if(player[ycor][xcor].getCond()==0){
           player[ycor][xcor].setCond(3);
+misscounteropp=misscounteropp+1;
        }
 }
       
@@ -401,10 +454,12 @@ void instructions(){
  }
  if(!start && end){
    if(!lose){
-     text("You win!", 360, 520);
+     text("You win! Play Again?", 360, 520);
+     text("Press Y to play again",360,540);
+     text("Press N to play again",360,560);
    }
    else{
-     text("You lose!", 360, 520);
+     text("You lose! Play Again?", 360, 520);
    }
  }
 }
@@ -456,6 +511,8 @@ void mousePressed() {
 
 void mouseClicked(){
     playerAttack();
+    show();
+    
 }
 
 void mouseDragged() {
@@ -491,6 +548,24 @@ void keyPressed() {
   if(key == ENTER){
       lockShip();
     }
+  if(!start && end){
+     if(key=='y'){
+    start=false;
+    end=false;
+    locked=false;
+    misscounteropp=0;
+    misscounterplayer=0;
+    setup();
+    draw();
+  }
+  else if(key=='n'){
+    start=false;
+    end=true;
+    text("Game Over",400,400);
+  }
+   }
+
+     
 }
 
 String toString(Cell[][]a){
@@ -506,5 +581,10 @@ String toString(Cell[][]a){
     }
   return result;        
 }  
+
+
+void clear(){
+  background(255);
+}
           
           
