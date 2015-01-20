@@ -71,17 +71,20 @@ float yOffset = 0.0;
 //PImage img=loadImage("Ship4.jpg", "jpg");
 
 void show(){
-  if (mouseX>300 && mouseX<500 && mouseY>300 && mouseY<500){
+  if(Hints>0){
+  if (mouseX>350 && mouseX<500 && mouseY>300 && mouseY<500){
         for (int i = 0; i < rows; i++){
     for (int j = 0; j < cols; j++){
        opponent[i][j].display2(j*30+400, i*30);
   }
         }
+        Hints=Hints-1;
   }
   else{
     overbox=false;
   }
 
+}
 }
 
 
@@ -122,14 +125,19 @@ void setup(){
   h5 = 30;
   
 }
-String s="Click here for a hint";
+String s="Click Here";
+int Hints=3;
 void draw(){
 
   background(200);
   if(start){
   fill(255);
-  rect(400,400,100,100);
-  text(s,400,400,100,80);
+  rect(400,400,100,100,100);
+  textSize(20);
+  fill(0, 102, 153);
+  text(s,400,415,100,100);
+  text(Hints,445,460);
+  text("Hints:",390,440,100,100);
   }
   for (int i = 0; i < rows; i++){
     for (int j = 0; j < cols; j++){
