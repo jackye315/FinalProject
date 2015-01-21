@@ -2,7 +2,7 @@ FinalProject
 ============
 
 Battleship Description
-
+Battleship.pde is the actual game.
 We will be making a Battleship game using processing. We're using a 2D array to setup the board and the coordinates of the ships will be random. The player will play against an AI. First the player will go, then the AI will go similar to the move system in Stuyablo. There will be a method for shooting a specific coordinate on the grid, where the player can choose the coordinates and the AI will shoot at random. The AI will shoot randomly until it hits a ship, in which it will then proceed to hit around the ship until it lands a second hit. Once the second hit is landed, it will follow that sequence. The game will end when either the player's or AI's ships are all destroyed.
 
 Methods:
@@ -69,3 +69,11 @@ Instructions are added in.
 Bugs - Some of the ships randomly change position when the mouse is dragging another ship. 
        The game won't begin if the ships are placed too close to the edge of the board.
        The player's ships can be placed over one another.
+       The two ships of the same size change together when we right click.
+
+January 20, 2015
+Added the hints, sound, and worked on the AI. Fixed bug where two of the ships of the same length change direction together.
+Bugs - Some of the ships randomly change position when the mouse is dragging another ship. 
+       The game won't begin if the ships are placed too close to the edge of the board.
+       The player's ships can be placed over one another.
+       When we right click every ship consecutively, then right click again, the ships all turn to the same size.
