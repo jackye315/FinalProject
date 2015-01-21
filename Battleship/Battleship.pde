@@ -86,8 +86,8 @@ void show(){
     for (int j = 0; j < cols; j++){
       if(opponent[i][j].getCond()==1){
         opponent[i][j].setCond(2);
-        i=i+rows;
-        j=j+cols;
+        //i=i+rows;
+        //j=j+cols;
       }
       // opponent[i][j].display(j*30+400, i*30);
 
@@ -138,6 +138,7 @@ void setup(){
   h3 = 30;
   h4 = 30;
   h5 = 30;
+
   minim = new Minim(this);
   sound = minim.loadFile("Battleship.mp3");
   sound.loop();
@@ -155,6 +156,10 @@ void draw(){
   textSize(20);
   fill(0, 102, 153);
   text(s,400,415,100,100);
+  if(misscounterplayer>10){
+    Hints=Hints+1;
+    misscounterplayer=0;
+  }
   text(Hints,445,460);
   text("Hints:",390,440,100,100);
   }
@@ -190,7 +195,8 @@ void draw(){
 
       start = false;
       end = true;
-      clear();
+      fill(255);
+      rect(600,600,100,100);
       text("Game Over", 400, 400);
     }
   }
@@ -487,12 +493,21 @@ void instructions(){
  }
  if(!start && end){
    if(!lose){
-     text("You win! Play Again?", 360, 520);
-     text("Press Y to play again",360,540);
-     text("Press N to play again",360,560);
+     text("You win! Play Again?", 265,520);
+     text("Press Y to play again",265,560);
+     text("Press N to play again",265,585);
+     if(key=='n'){
+       fill(0);
+       rect(240,500,290,600);
+       fill(255);
+       text("Game Over", 312, 570);
+     
+     }
    }
    else{
      text("You lose! Play Again?", 360, 520);
+          text("Press Y to play again",360,540);
+     text("Press N to play again",360,560);
    }
  }
 }
@@ -589,11 +604,14 @@ void keyPressed() {
     misscounteropp=0;
     misscounterplayer=0;
     setup();
+    Hints=2;
     draw();
   }
   else if(key=='n'){
     start=false;
     end=true;
+    fill(255);
+      rect(600,600,100,100);
     text("Game Over",400,400);
   }
    }
