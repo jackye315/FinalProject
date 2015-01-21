@@ -84,7 +84,13 @@ void show(){
   if (mouseX>350 && mouseX<500 && mouseY>300 && mouseY<500){
         for (int i = 0; i < rows; i++){
     for (int j = 0; j < cols; j++){
-       opponent[i][j].display2(j*30+400, i*30);
+      if(opponent[i][j].getCond()==1){
+        opponent[i][j].setCond(2);
+        i=i+rows;
+        j=j+cols;
+      }
+      // opponent[i][j].display(j*30+400, i*30);
+
   }
         }
         Hints=Hints-1;
@@ -139,7 +145,7 @@ void setup(){
   explosion = explode.loadFile("explosion.mp3");
 }
 String s="Click Here";
-int Hints=3;
+int Hints=2;
 void draw(){
 
   background(200);
