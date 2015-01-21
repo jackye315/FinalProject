@@ -523,7 +523,7 @@ void instructions(){
    if(!lose){
      text("You win! Play Again?", 265,520);
      text("Press Y to play again",265,560);
-     text("Press N to play again",265,585);
+     text("Press N to end game",265,585);
      if(key=='n'){
        fill(0);
        rect(240,500,290,600);
@@ -535,7 +535,7 @@ void instructions(){
    else{
      text("You lose! Play Again?", 360, 520);
           text("Press Y to play again",360,540);
-     text("Press N to play again",360,560);
+     text("Press N to end game",360,560);
    }
  }
 }
