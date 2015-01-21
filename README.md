@@ -6,12 +6,16 @@ Battleship.pde is the actual game.
 We will be making a Battleship game using processing. We're using a 2D array to setup the board and the coordinates of the ships will be random. The player will play against an AI. First the player will go, then the AI will go similar to the move system in Stuyablo. There will be a method for shooting a specific coordinate on the grid, where the player can choose the coordinates and the AI will shoot at random. The AI will shoot randomly until it hits a ship, in which it will then proceed to hit around the ship until it lands a second hit. Once the second hit is landed, it will follow that sequence. The game will end when either the player's or AI's ships are all destroyed.
 
 Methods:
-Shooting method-two parameters, the two coordinates
-Setup -sets up grid
-AIplay-how the AI will play, using shooting method and random parameters
-ShowGrid-shows if shooting hit a ship
-PlayGame-Method for playing where one player starts then the other
-
+Setup() - sets up boards.
+createShips() 
+rotateShip()
+addShip() - adds ships based on the coordinate and dimension parameters 
+opponentShip() - randomly adds ships onto the opponent's board
+playerAttack() - hits the opponent's board based on the mouse coordinates
+opponentAttack() - is called after playetAttack(); randomly hits the player's board and if it hits a ship, it will start hitting the cells near it
+isDead() - checks to see if any board has no ships left
+instructions() - displays instructions
+reveal() - shows the 2D arrays that represent the boards; not shown in the game
 
 
 January 5, 2015
@@ -33,14 +37,10 @@ We tried to figure out how they can check the current color of that box to know 
 We also started working on a way to place ships on the board.
 
 January 11, 2015
-Created a board class with methods clear() and addShip().
-The board is represented by a 2D array and the ships are represented by strings of 'S'.
-clear() - clears the board in the beginning of the game
+Created a board class.
+The board is represented by a 2D array.
 addShip() - adds ship onto the board and returns a boolean if it works
 Started working on the methods that will prompt game.
-GenerateBoard() - generates player's board
-GenerateOpp() - generates the opponent's board
-first() - determines who goes first
 
 January 12, 2015
 Decided the processing front part was really confusing so we instead worked on the java back end. We continued working on the board and battleship class, and also worked on the attack() method for each turn.
