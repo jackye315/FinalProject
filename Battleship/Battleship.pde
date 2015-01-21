@@ -86,8 +86,8 @@ void show(){
     for (int j = 0; j < cols; j++){
       if(opponent[i][j].getCond()==1){
         opponent[i][j].setCond(2);
-        //i=i+rows;
-        //j=j+cols;
+        i=i+rows;
+        j=j+cols;
       }
       // opponent[i][j].display(j*30+400, i*30);
 
@@ -407,6 +407,33 @@ boolean target = false;
 void oppAttack(){    
     int xcor = 0;
     int ycor = 0;
+    if(player[xcor][ycor].getCond()==2 && player[xcor+1][ycor].getCond()==2){
+     xcor=xcor-1;
+   }
+   if(player[xcor][ycor].getCond()==2 && player[xcor-1][ycor].getCond()==2){
+     xcor=xcor+1;
+   }
+   if(player[xcor][ycor].getCond()==2 && player[xcor][ycor+1].getCond()==2){
+     ycor=ycor-1;
+   }
+   if(player[xcor][ycor].getCond()==2 && player[xcor][ycor-1].getCond()==2){
+     ycor=ycor+1;
+   }
+   if(xcor>2 && ycor>2){
+   if(player[xcor][ycor].getCond()!=2 && player[xcor][ycor-1].getCond()==2 && player[xcor][ycor-2].getCond()==2){
+     ycor=ycor-3;
+   }
+   if(player[xcor][ycor].getCond()!=2 && player[xcor][ycor+1].getCond()==2 && player[xcor][ycor+2].getCond()==2){
+     ycor=ycor+3;
+   }
+   if(player[xcor][ycor].getCond()!=2 && player[xcor-1][ycor].getCond()==2 && player[xcor-2][ycor].getCond()==2){
+     xcor=xcor-3;
+   }
+   if(player[xcor][ycor].getCond()!=2 && player[xcor+1][ycor].getCond()==2 && player[xcor+2][ycor].getCond()==2){
+     xcor=xcor+3;
+   }
+   }
+   else{
     for(int tries = 0; tries < 100; tries++){
       if(target){
         if(tempxcor!=0){
@@ -445,6 +472,7 @@ void oppAttack(){
         break;
       }
     }
+   }
     if(player[ycor][xcor].getCond()==1){
        player[ycor][xcor].setCond(2);
                  misscounteropp=0;
