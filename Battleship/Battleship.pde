@@ -109,7 +109,7 @@ void show(){
 
 void setup(){
 
-  size(830,650);
+  size(800,650);
   player = new Cell[rows][cols];
   opponent = new Cell[rows][cols];
   for (int i = 0; i < rows; i++){
@@ -152,16 +152,16 @@ void draw(){
   background(200);
   if(start){
   fill(255);
-  rect(400,400,100,100,100);
+  rect(340,400,100,100,100);
   textSize(20);
   fill(0, 102, 153);
-  text(s,400,415,100,100);
+  text(s,340,415,100,100);
   if(misscounterplayer>10){
     Hints=Hints+1;
     misscounterplayer=0;
   }
-  text(Hints,445,460);
-  text("Hints:",390,440,100,100);
+  text(Hints,400,460);
+  text("Hints: ",340,440,100,100);
   }
   for (int i = 0; i < rows; i++){
     for (int j = 0; j < cols; j++){
@@ -186,8 +186,8 @@ void draw(){
   }
 
   if(start){
-    text("Misscounter:",290,520);
-        text(misscounterplayer,450,520);
+    text("Misscounter: ",300,520);
+        text(misscounterplayer,460,520);
     if(isDead(player) || isDead(opponent)){
       if(isDead(player)){
         lose = true;
