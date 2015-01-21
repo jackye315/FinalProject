@@ -1,3 +1,6 @@
+import ddf.minim.*;
+
+
 class Cell{
     
   float x, y;
@@ -68,6 +71,12 @@ boolean turn = true;
 boolean lose = false;
 float xOffset = 0.0;
 float yOffset = 0.0;
+
+Minim minim;
+Minim explode;
+AudioPlayer sound;
+AudioPlayer explosion;
+
 //PImage img=loadImage("Ship4.jpg", "jpg");
 
 void show(){
@@ -123,7 +132,11 @@ void setup(){
   h3 = 30;
   h4 = 30;
   h5 = 30;
-  
+  minim = new Minim(this);
+  sound = minim.loadFile("Battleship.mp3");
+  sound.loop();
+  explode = new Minim(this);
+  explosion = explode.loadFile("explosion.mp3");
 }
 String s="Click Here";
 int Hints=3;
@@ -360,6 +373,10 @@ void playerAttack(){
       if(opponent[mouseY/30][(mouseX-400)/30].getCond()==1){
         opponent[mouseY/30][(mouseX-400)/30].setCond(2);
         misscounterplayer=0;
+        //explode = new Minim(this);
+        //explosion = explode.loadFile("explosion.mp3");
+        explosion.rewind();
+        explosion.play();
         oppAttack();
       }
       if(opponent[mouseY/30][(mouseX-400)/30].getCond()==0){
@@ -419,6 +436,8 @@ void oppAttack(){
     if(player[ycor][xcor].getCond()==1){
        player[ycor][xcor].setCond(2);
                  misscounteropp=0;
+                 explosion.rewind();
+                 explosion.play();
        
        target = true;
        tempxcor = xcor; 
